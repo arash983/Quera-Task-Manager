@@ -41,6 +41,7 @@ const AddWorkspaceModal = ({ opened, onClose }: props) => {
               notifications.show({ message: error?.message, color: 'red' });
             }
           }
+          setLoading(false);
         }}
       >
         <Flex direction="column" px="sm" gap="lg">
