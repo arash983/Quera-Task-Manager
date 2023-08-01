@@ -145,7 +145,7 @@ const BoardView = () => {
       if (task?.board) task.board = result.destination.droppableId;
       let updatedBoardTasks = [...(destinationBoard?.tasks as task[])];
       updatedBoardTasks = updatedBoardTasks.map((task) => {
-        if (task.position === (result.destination?.index as number) + 1)
+        if (task.position >= (result.destination?.index as number) + 1)
           return { ...task, position: task.position + 1 };
         return task;
       });
