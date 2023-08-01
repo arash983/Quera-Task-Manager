@@ -1,15 +1,5 @@
-import {
-  Flex,
-  Text,
-  Title,
-  Group,
-  Badge,
-  Divider,
-  useMantineTheme,
-  useMantineColorScheme,
-  Avatar
-} from '@mantine/core';
-import { Done, Dots, JustifyRight } from '../../assets/icons';
+import { Flex, Text, Title, Group, Badge, Divider, Avatar } from '@mantine/core';
+import { Done, JustifyRight } from '../../assets/icons';
 import TaskListItem from '../TaskListItem';
 import SvgProvier from '../../assets/icons/SvgProvider';
 import type { tag, task } from '../../data/dataSlice/boardsSlice';
@@ -69,7 +59,8 @@ const TaskCard = ({ task, projectName, dragTask, boardName }: props) => {
         pb="0px"
         withBorder
         className={`${!dragTask ? 'group' : 'rotate-6'}`}
-        style={{ transition: '300ms ease-out' }}>
+        style={{ transition: '300ms ease-out' }}
+      >
         <Flex direction="column" gap="16px" style={{ position: 'relative' }}>
           <Flex direction="column" gap="8px">
             <Text size="12px">{projectName}</Text>
@@ -89,21 +80,25 @@ const TaskCard = ({ task, projectName, dragTask, boardName }: props) => {
             className={`opacity-0 group-hover/:opacity-100 duration-300 transition-all ${
               dragTask && 'opacity-100'
             }`}
-            style={{ position: 'absolute', left: 0 }}>
+            style={{ position: 'absolute', left: 0 }}
+          >
             {task.taskAssigns?.length > 0
               ? task.taskAssigns?.map((user: any) => {
-                  return (
-                    <UnasignMember key={user._id} taskId={task._id} username={user.username}>
-                      <MyAvatar
-                        key={user._id}
-                        {...user}
-                        size="24px"
-                        variant="filled"
-                        radius="xl"
-                        src={null}
-                      />
-                    </UnasignMember>
-                  );
+                  if (user) {
+                    console.log(user, task);
+                    return (
+                      <UnasignMember key={user._id} taskId={task._id} username={user.username}>
+                        <MyAvatar
+                          key={user._id}
+                          {...user}
+                          size="24px"
+                          variant="filled"
+                          radius="xl"
+                          src={null}
+                        />
+                      </UnasignMember>
+                    );
+                  }
                 })
               : null}
           </Avatar.Group>
@@ -124,7 +119,8 @@ const TaskCard = ({ task, projectName, dragTask, boardName }: props) => {
         <div
           className={`max-h-0  group-hover/:block group-hover/:max-h-20 transition-all ease-in-out duration-300 ${
             dragTask && 'block max-h-20'
-          }`}>
+          }`}
+        >
           <Divider
             mb="16px"
             mt="16px"
@@ -140,15 +136,14 @@ const TaskCard = ({ task, projectName, dragTask, boardName }: props) => {
                 }`}
               />
             </SvgProvier>
-            <EditTaskMenu id={task._id}/>
-              {/* <SvgProvier style={{ heigh: '20px' }}>
+            <EditTaskMenu id={task._id} />
+            {/* <SvgProvier style={{ heigh: '20px' }}>
                 <Dots
                   className={` group-hover/:visible group-hover/:opacity-100 transition-all ease-in-out duration-300 ${
                     dragTask ? 'visible opacity-100' : 'invisible opacity-0'
                   }`}
                 />
               </SvgProvier> */}
-            
           </Flex>
         </div>
       </TaskListItem>

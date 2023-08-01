@@ -202,7 +202,7 @@ const TaskInformationModal = ({ opened, onClose, task, boardName, tags, setTags 
                 </SvgProvier>
                 <MantineAvatar.Group spacing={'sm'}>
                   {task.taskAssigns.map((user) => {
-                    return <Avatar size="34px" key={user._id} {...user} />;
+                    if (user) return <Avatar size="34px" key={user._id} {...user} />;
                   })}
 
                   <AddMemberToTask taskId={task._id} />
