@@ -77,7 +77,7 @@ const AddTaskModal = ({ opened, onClose, boardId, boardName }: props) => {
     if (tag.name) {
       console.log(tag);
       try {
-        const res = await myAxios.post(`/tags`, { ...tag, taskId });
+        await myAxios.post(`/tags`, { ...tag, taskId });
         SetTag({ name: '', color: '' });
       } catch (error: any) {
         notifications.show({ message: error?.message, color: 'red' });
@@ -118,7 +118,7 @@ const AddTaskModal = ({ opened, onClose, boardId, boardName }: props) => {
                 setMeassage('');
                 const res = await myAxios.post('/task/', data);
                 setValue('');
-                let promise = await Promise.all([
+                await Promise.all([
                   addTagToTask(res.data.data._id),
                   addMemberToTask(res.data.data._id)
                 ]);
@@ -131,6 +131,7 @@ const AddTaskModal = ({ opened, onClose, boardId, boardName }: props) => {
                 setLoading(false);
                 notifications.show({ message: error?.message, color: 'red' });
               }
+              setLoading(false);
             }
           }}
         >

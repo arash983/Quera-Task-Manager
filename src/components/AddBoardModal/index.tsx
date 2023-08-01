@@ -41,6 +41,7 @@ const AddBoardModal = ({ opened, onClose, id }: props) => {
         notifications.show({ message: error?.message, color: 'red' });
       }
     }
+    setLoading(false);
   };
   return (
     <Modal
